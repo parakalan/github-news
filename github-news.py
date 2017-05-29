@@ -1,23 +1,47 @@
 import dryscrape
+import pickle
+import os
+import sys
+
+
+def check_first_start():
+    filepath = os.path.abspath(os.path.join(__file__, "../cached_news"))
+    try:
+        f = open(filepath)
+    except IOError:
+        print "Starting for first time."
+        setup_cron()
+
+
+def setup_cron():
+    from crontab import CronTab
+    cron = CronTab()
+    job = cron.new(command=sys.executable + ' ' + os.path.abspath(__file__))
+    try:
+        job.minute.every(config["interval"])
+    except KeyError:
+        print "Please check your config file. Interval missing"
+        exit()
+    import getpass
+    cron.write(user=getpass.getuser())
 
 
 def notify(title):
-    import os
     notif = 'export DISPLAY=:0.0 && notify-send "%s" ' % (title.text())
     os.system(notif)
 
 
 def cache_news(load, news=None):
-    import pickle
+    filepath = os.path.abspath(os.path.join(__file__, "../cached_news"))
     if load:
         try:
-            with open('cached_news') as f:
+            with open(filepath) as f:
                 news = pickle.load(f)
                 return news
         except IOError:
             return []
     else:
-        with open('cached_news', 'wb') as f:
+        with open(filepath, 'wb') as f:
             pickle.dump(news, f)
 
 
@@ -63,5 +87,10 @@ if __name__ == '__main__':
     sess = dryscrape.Session(base_url='https://github.com')
     sess.set_attribute('auto_load_images', True)
     config = get_config()
-    login(config['username'], config['password'])
+    check_first_start()
+    try:
+        login(config['username'], config['password'])
+    except KeyError:
+        print "Please check your config file."
+        exit()
     get_news()
