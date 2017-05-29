@@ -1,21 +1,29 @@
-### github-news
-#### View Github news feed updates from command line.
+## github-news
+#### Get Github news feed updates as notifications.
 
-A simple Python app to view Github notifications from command line. The script logs into your account, scrapes the news feed from the home page and displays it.
+A simple Python app to get Github news feed updates as notifications. The script logs into your account, scrapes the news feed from the home page and sends notifications using `notify-send`.
 
 
 #### Usage
-Install dryscrape
+* Install `dryscrape`
 ```sh
 $ pip install dryscrape
 ```
-**Add your credentials in line no. 28** (Sorry :stuck_out_tongue:  Will get credentials from config file in future) . After that,
+
+* Create config file from template
+```sh
+$ cp .config.example .config
+```
+
+* Edit .config and add your details.
+
+* Run script
 ```sh
 $ python github-news.py
 ```
-The top 30 notifications will be printed.
 
 
 #### To do
-- [ ] Get login credentials from config file.
-- [ ] Send desktop notifications.
+- [x] Get login credentials from config file.
+- [x] Send desktop notifications.
+- [ ] Setup cron from script.
