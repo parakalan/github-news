@@ -1,0 +1,5 @@
+{
+    "username":"<GITHUB_USERNAME>",
+    "password":"<GITHUB_PASSWORD>",
+    "preferred_people":["user1", "user2"]
+}
