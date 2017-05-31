@@ -18,7 +18,7 @@ $ pip install python-crontab
 $ cp .config.example .config
 ```
 
-* Edit .config according to your details.
+* Edit .config. Add your details.
 
 * Run script
 ```sh
@@ -30,3 +30,4 @@ $ python github-news.py
 - [x] Get login credentials from config file.
 - [x] Send desktop notifications.
 - [x] Setup cron from script.
+- [ ] Display hyperlink in notifications.

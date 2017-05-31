@@ -9,7 +9,7 @@ def check_first_start():
     try:
         f = open(filepath)
     except IOError:
-        print "Starting for first time."
+        print "Starting for the first time."
         setup_cron()
 
 
@@ -46,9 +46,10 @@ def cache_news(load, news=None):
 
 
 def get_config():
+    filepath = os.path.abspath(os.path.join(__file__, "../.config"))
     try:
         import json
-        with open('.config') as f:
+        with open(filepath) as f:
             config = json.load(f)
         return config
     except IOError:
